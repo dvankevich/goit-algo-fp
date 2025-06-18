@@ -79,6 +79,27 @@ class LinkedList:
           current = next_node
       self.head = prev  # новий початок списку
 
+  def insertion_sort(self):
+    s_head = self.head   # голова відсортованої частини
+    u_head = s_head.next  # голова невідсортованої частини
+    while u_head:
+      temp_item = u_head  # тимчасова змінна
+      flag = True
+      s_ptr = s_head    # вказівник елемента у відсортованій частині
+      while flag:
+        if s_ptr.data > temp_item.data: # Якщо відсортований елемент більший за тимчасовий
+          # змістіть відсортований елемент вправо на одну позицію
+          # Вставте тимчасовий елемент на вільну позицію
+          s_ptr_next = s_ptr.next
+          temp_item_next = temp_item.next
+          s_ptr.next = temp_item.next
+          temp_item.next = s_ptr_next
+          
+
+          pass
+
+
+
 
 def reverse_list_test():
   llist = LinkedList()
@@ -96,5 +117,21 @@ def reverse_list_test():
   print("Реверсивний список:")
   llist.print_list()
 
+def insertion_sort_test():
+  llist = LinkedList()
+  llist.insert_at_beginning(50)
+  llist.insert_at_end(20)
+  llist.insert_at_end(2)
+  llist.insert_at_end(25)
+  llist.insert_at_end(15)
+  print("Зв'язний список:")
+  llist.print_list()
+  print("Відсортований список:")
+  #llist.insertion_sort()
+  llist.print_list()
+
+
+
 if __name__ == "__main__":
   reverse_list_test()
+  insertion_sort_test()
