@@ -104,9 +104,80 @@ class LinkedList:
 
       self.head = sorted_list  # Оновити голову списку
 
+def merge_sorted_lists(list1, list2):
+    # Створюємо новий зв'язний список
+    merged_head = None
+    merged_tail = None
+
+    # Вказівники на голови обох списків
+    current1 = list1.head
+    current2 = list2.head
+
+    while current1 and current2:
+        if current1.data < current2.data:
+            # Додаємо вузол з першого списку
+            if merged_head is None:
+                merged_head = current1
+                merged_tail = merged_head
+            else:
+                merged_tail.next = current1
+                merged_tail = merged_tail.next
+            current1 = current1.next
+        else:
+            # Додаємо вузол з другого списку
+            if merged_head is None:
+                merged_head = current2
+                merged_tail = merged_head
+            else:
+                merged_tail.next = current2
+                merged_tail = merged_tail.next
+            current2 = current2.next
+
+    # Додаємо залишкові вузли з першого списку, якщо є
+    while current1:
+        if merged_head is None:
+            merged_head = current1
+            merged_tail = merged_head
+        else:
+            merged_tail.next = current1
+            merged_tail = merged_tail.next
+        current1 = current1.next
+
+    # Додаємо залишкові вузли з другого списку, якщо є
+    while current2:
+        if merged_head is None:
+            merged_head = current2
+            merged_tail = merged_head
+        else:
+            merged_tail.next = current2
+            merged_tail = merged_tail.next
+        current2 = current2.next
+
+    # Оновлюємо голову нового списку
+    merged_list = LinkedList()
+    merged_list.head = merged_head
+    return merged_list
 
 
 
+def merge_sorted_lists_test():
+   llist1 = LinkedList()
+   llist1.insert_at_beginning(1)
+   llist1.insert_at_end(3)
+   llist1.insert_at_end(5)
+
+   llist2 = LinkedList()
+   llist2.insert_at_beginning(2)
+   llist2.insert_at_end(4)
+   llist2.insert_at_end(6)
+
+   print("Список 1:")
+   llist1.print_list()
+   print("Список 2:")
+   llist2.print_list()
+   print("Об'єднаний список")
+   merge_sorted_lists(llist1,llist2).print_list()
+   
 
 def reverse_list_test():
   llist = LinkedList()
@@ -140,5 +211,6 @@ def insertion_sort_test():
 
 
 if __name__ == "__main__":
-  #reverse_list_test()
+  reverse_list_test()
   insertion_sort_test()
+  merge_sorted_lists_test()
