@@ -83,6 +83,7 @@ class LinkedList:
     s_head = self.head   # голова відсортованої частини
     u_head = s_head.next  # голова невідсортованої частини
     while u_head:
+      print("u_head", u_head)
       temp_item = u_head  # тимчасова змінна
       flag = True
       s_ptr = s_head    # вказівник елемента у відсортованій частині
@@ -90,13 +91,22 @@ class LinkedList:
         if s_ptr.data > temp_item.data: # Якщо відсортований елемент більший за тимчасовий
           # змістіть відсортований елемент вправо на одну позицію
           # Вставте тимчасовий елемент на вільну позицію
-          s_ptr_next = s_ptr.next
-          temp_item_next = temp_item.next
-          s_ptr.next = temp_item.next
-          temp_item.next = s_ptr_next
-          
 
-          pass
+          print(s_ptr.next, u_head)
+          if s_ptr.next == u_head:
+            print("flag = False")
+            flag = False # досягнуто кінця відсортованого списку
+
+          u_head = temp_item.next # Змінюємо голову невідсортованого списку
+          print("u_head.next.data", u_head.next.data)
+          s_head = temp_item # тимчасовий елемент стає головою відсортованого списку
+
+          temp_ptr = s_head.next
+          s_head.next = s_ptr.next
+          s_ptr.next = temp_ptr
+          s_head.next = self.head
+          self.head = s_head # початок списку має співпадати з головою відсоротваного списку
+
 
 
 
@@ -127,11 +137,11 @@ def insertion_sort_test():
   print("Зв'язний список:")
   llist.print_list()
   print("Відсортований список:")
-  #llist.insertion_sort()
+  llist.insertion_sort()
   llist.print_list()
 
 
 
 if __name__ == "__main__":
-  reverse_list_test()
+  #reverse_list_test()
   insertion_sort_test()
