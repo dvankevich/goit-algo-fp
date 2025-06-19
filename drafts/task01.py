@@ -80,29 +80,32 @@ class LinkedList:
       self.head = prev  # новий початок списку
 
   def insertion_sort(self):
-      if self.head is None:
-          return
+    s_head = self.head   # голова відсортованої частини
+    u_head = s_head.next  # голова невідсортованої частини
+    while u_head:
+      print("u_head", u_head)
+      temp_item = u_head  # тимчасова змінна
+      flag = True
+      s_ptr = s_head    # вказівник елемента у відсортованій частині
+      while flag:
+        if s_ptr.data > temp_item.data: # Якщо відсортований елемент більший за тимчасовий
+          # змістіть відсортований елемент вправо на одну позицію
+          # Вставте тимчасовий елемент на вільну позицію
 
-      sorted_list = None  # Відсортований список
-      current = self.head  # Поточний елемент для обробки
+          print(s_ptr.next, u_head)
+          if s_ptr.next == u_head:
+            print("flag = False")
+            flag = False # досягнуто кінця відсортованого списку
 
-      while current:
-          next_node = current.next  # Запам'ятати наступний елемент
-          
-          # Вставка нового вузла в відсортований список
-          if sorted_list is None or sorted_list.data >= current.data:
-              current.next = sorted_list
-              sorted_list = current
-          else:
-              search = sorted_list
-              while search.next and search.next.data < current.data:
-                  search = search.next
-              current.next = search.next
-              search.next = current
+          u_head = temp_item.next # Змінюємо голову невідсортованого списку
+          print("u_head.next.data", u_head.next.data)
+          s_head = temp_item # тимчасовий елемент стає головою відсортованого списку
 
-          current = next_node  # Перейти до наступного невідсортованого елемента
-
-      self.head = sorted_list  # Оновити голову списку
+          temp_ptr = s_head.next
+          s_head.next = s_ptr.next
+          s_ptr.next = temp_ptr
+          s_head.next = self.head
+          self.head = s_head # початок списку має співпадати з головою відсоротваного списку
 
 
 
